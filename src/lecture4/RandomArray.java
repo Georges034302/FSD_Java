@@ -19,7 +19,9 @@ public class RandomArray {
 
         for(int i=0; i < numbers.length; i++)
             numbers[i] = r.nextInt(100);
+            
         System.out.println(Arrays.toString(numbers));
+
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         int sum = 0;        
@@ -31,7 +33,7 @@ public class RandomArray {
                 max = numbers[i];
             sum += numbers[i];
         }
-        
+
         double avg = (double) sum / numbers.length;
         System.out.println("Min = "+min+"\n"+
                             "Max = "+max+"\n"+
