@@ -7,12 +7,18 @@ import utils.In;
  * determine if any of the strings is a palindrome
  * 
  */
+/*
+ * Top level: determine and show palindrome strings
+ * second: check if a string is a palindrome
+ * third: determine the reverse of a string
+ */
 public class Palindrome {
+
     public static void main(String[] args) {
         String s = "";
 
         while (!(s = readString()).equals("*")) {
-            System.out.println(isPalindrome(s) ? s+" is Palindrome": s+" is not a Palindrome");
+            System.out.println(isPalindrome(s)?s+" is Palindrome": s+" is not Palindrome");
         }
     }
     
@@ -22,12 +28,12 @@ public class Palindrome {
     }
 
     public static boolean isPalindrome(String s) {
-        String left = s.substring(0, s.length()/2+1);
-        String right = s.substring(s.length()/2, s.length());
+        String left = s.substring(0, s.length() / 2 + 1);
+        String right = s.substring(s.length() / 2, s.length());
         return left.equals(reverseString(right));
     }
-    
-    public static String reverseString(String s) {
+
+    public static String reverseString(String s){
         StringBuilder sb = new StringBuilder(s);
         return sb.reverse().toString();
     }
