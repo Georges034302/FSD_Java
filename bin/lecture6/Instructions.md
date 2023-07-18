@@ -13,7 +13,7 @@ The aim of this exercise is to practice OOP with Java.
 * CashRegister has the method ‘pay’ that reduces the cash when restocking
 * CashRegister has the method ‘isEmpty’ to check the cash is zero
 * CashRegister has the method has(double cash) to check if there is enough money to pay for restocking
-* Override the toString():
+* Overrides the toString():
         to return: 
         “Cash level: $<cash-value>”
        	*[cash value should be formatted at 2 decimal points]*
@@ -38,7 +38,7 @@ The aim of this exercise is to practice OOP with Java.
         if the stock level is zero
 
 ## The Shop class:
-* Shop has two fields: one Product instances and one CashRegister instance
+* Shop has two fields: one Product instance and one CashRegister instance
 * Shop has a constructor that initializes the Product field using the constructor with parameters and initializes the CashRegister field using the default constructor
 * Define a method called ‘sell’ that sells quantity of the product. 
 	- read the quantity to sell from user-input
