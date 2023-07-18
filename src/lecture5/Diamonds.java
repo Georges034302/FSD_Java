@@ -32,7 +32,7 @@ public class Diamonds {
   public static void main(String[] args) {
     System.out.print("n = ");
     int n = In.nextInt();
-
+    
     showDiamond(n);
   }
 
