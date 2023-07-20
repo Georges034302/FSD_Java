@@ -1,0 +1,93 @@
+package lecture7;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import utils.In;
+
+public class Faculty {
+    private List<Student> students;
+
+    public static void main(String[] args) {
+        new Faculty().menu();
+    }
+
+    public Faculty() {
+        this.students = new ArrayList<>();
+    }
+
+    private boolean match(int ID) {
+        return students.stream().anyMatch(s->s.match(ID));
+    }
+
+    private int uniqueID() {
+        Random r = new Random();
+        int ID = r.nextInt(1000);
+        while (match(ID))
+            ID = r.nextInt(999);
+        return ID;
+    }
+
+    private int mark() {
+        Random r = new Random();
+        return r.nextInt(100);
+    }
+    
+    private void register() {
+        for (int i = 0; i < 10; i++) {
+            this.students.add(new Student(uniqueID(), mark()));
+        }
+    }
+
+    private void showResults() {
+        students.forEach(s -> System.out.println(s));
+    }
+
+    private void partition() {
+        Map<Boolean, List<Student>> paritioned = new HashMap<>();
+        paritioned = students.stream().collect(Collectors.partitioningBy(s -> s.getMark() >= 50));
+        paritioned.forEach((k, v) -> System.out.printf("%4s --> %-12s%n", k ? "PASS" : "FAIL", v));
+    }
+    
+    private void groupByGrade() {
+        Map<String, List<Student>> groups = new HashMap<>();
+        groups = students.stream().collect(Collectors.groupingBy(Student::getGrade));
+        groups.forEach((k, v) -> System.out.printf("%4s --> %-12s%n", k, v));
+    }
+
+    private void clear() {
+        students.clear();
+    }
+
+    private char readChoice() {
+        System.out.print("Choice(r/g/p/v/x): ");
+        return In.nextChar();
+    }
+    
+    private void menu(){
+        char c;
+        while((c = readChoice()) != 'x'){
+            switch(c){
+                case 'r':register();break; 
+                case 'c':clear();break;
+                case 'g':groupByGrade();break;
+                case 'p':partition();break;
+                case 'v':showResults();break;
+                default:help();break;
+            }
+        }
+    }
+    
+    private void help(){
+        System.out.println("r - register");
+        System.out.println("c - clear list");
+        System.out.println("g - group by grade");
+        System.out.println("p - partition by pass/fail");
+        System.out.println("v - view all results");
+        System.out.println("x - exit");
+    }
+}
