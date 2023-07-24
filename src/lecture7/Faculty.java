@@ -78,7 +78,7 @@ public class Faculty {
     }
 
     private char readChoice() {
-        System.out.print("Choice(r/c/g/p/v/x)");
+        System.out.print("Choice(r/c/g/p/v/x): ");
         return In.nextChar();
     }
 
