@@ -1,12 +1,11 @@
-# The Student Application
+# The Faculty Application
 
-The Student application is composed of two classes: 
+The Faculty application is composed of two classes: 
 Student and Faculty
 
 The aim of this exercise is to practice collections operations with Java
 
 ## The Student class:
-
 * Student has 3 fields: ID, mark, grade
 * Student has one constructor that initializes the fields ID and mark from parameters. The grade auto-calculated based on the mark
 * Student has 2 get methods to return the ID and mark
@@ -26,13 +25,13 @@ The aim of this exercise is to practice collections operations with Java
 * Faculty has the method 'groupByGrade' to organize and show students by grade
 * Faculty has the method 'clear' to remove all students from the list
 * Faculty has the method ‘menu’ that represents the Faculty menu and provide users with 6 choices:
-	( r ) – register 10 students
-	( c ) – clear student list
-	( g ) – group by grades
-    ( p ) – partition by pass/fail   
-    ( v ) – view all students
-	( X ) – exit
-	default : help()
+	-   ( r ) – register 10 students
+  	-	( c ) – clear student list
+	-	( g ) – group by grades
+    -	( p ) – partition by pass/fail   
+    -	( v ) – view all students
+	-	( X ) – exit
+	-	default : help()
 * Define a method called ‘help’ that prints out the menu options
 * Define the main() method should execute the system menu()
 
