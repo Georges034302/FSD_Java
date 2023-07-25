@@ -19,13 +19,13 @@ public class Game {
     private String fileName = "game.data";
     private File file;
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         Game game = new Game();
         try {
             game.setup();
             game.menu();
-        } catch (ClassNotFoundException | IOException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -33,18 +33,19 @@ public class Game {
         this.players = new ArrayList<>();
     }
 
-    private void setup() throws IOException, URISyntaxException {
+    private void setup() throws URISyntaxException, IOException {
         File bin = new File(Game.class.getProtectionDomain().getCodeSource().getLocation().toURI());
         File folder = new File(Game.class.getPackageName());
         String dir = bin.getAbsolutePath();
         String filePath = dir + File.separator + folder;
         this.file = new File(filePath + File.separator + fileName);
         if (!file.exists()) {
-            System.out.println(file.createNewFile()?"File "+fileName+" created successfully": "Error while creating file");
+            System.out.println(
+                    file.createNewFile() ? "File " + fileName + " created successfully" : "Error while creating file");
         }
     }
 
-    private void play() throws IOException, ClassNotFoundException {
+    private void play() {
         players.clear();
         players.addAll(PlayerDAO.readPlayers(file));
         int index = players.size();
@@ -53,22 +54,22 @@ public class Game {
             players.add(new Player(i));
             currentGame.add(new Player(i));
         }
-        System.out.printf("%nNew Game[%02d]: %n",players.size()/10+1);
+        System.out.printf("%nNew Game[%02d]: %n", players.size() / 10 + 1);
         currentGame.forEach(System.out::println);
     }
 
-    private void save() throws IOException {
+    private void save() {
         System.out.println("\nSaving players record to file.\n");
         PlayerDAO.save(players, file);
     }
 
-    private void show() throws IOException, ClassNotFoundException {
+    private void show() {
         System.out.println("\nReading players record to file.");
         List<Player> temp = PlayerDAO.readPlayers(file);
         temp.forEach(System.out::println);
     }
 
-    private void clear() throws IOException {
+    private void clear() {
         System.out.println("\nClearing players file.\n");
         PlayerDAO.clear(players, file);
     }
@@ -78,7 +79,7 @@ public class Game {
         return In.nextChar();
     }
 
-    private void menu() throws IOException, ClassNotFoundException {
+    private void menu() {
         char c;
         while ((c = readChoice()) != 'x') {
             switch (c) {

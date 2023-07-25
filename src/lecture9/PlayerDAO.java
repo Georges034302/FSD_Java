@@ -12,29 +12,38 @@ import java.util.List;
 
 public class PlayerDAO {
 
-    public static void save(List<Player> list, File file) throws FileNotFoundException, IOException {
-        FileOutputStream fileOut = new FileOutputStream(file);
-        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-        objOut.writeObject(list);
-        objOut.close();
-        fileOut.close();
+    public static void save(List<Player> list, File file) {
+        try (FileOutputStream fileOut = new FileOutputStream(file)) {
+            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(list);
+            objOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static List<Player> readPlayers(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream(file);
-        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        List<Player> temp = (List<Player>) objectIn.readObject();
-        objectIn.close();
-        fileIn.close();
-        return temp;
+    public static List<Player> readPlayers(File file) {
+        try {
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            List<Player> temp = (List<Player>) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
+            return temp;
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    
-    public static void clear(List<Player> list, File file) throws FileNotFoundException, IOException {        
-        FileOutputStream fOut = new FileOutputStream(file);
-        ObjectOutputStream objOut = new ObjectOutputStream(fOut);
-        objOut.writeObject(new ArrayList<Player>());
-        list.clear();
-        objOut.close();
-        fOut.close();
+
+    public static void clear(List<Player> list, File file) {
+        try (FileOutputStream fOut = new FileOutputStream(file)) {
+            ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+            objOut.writeObject(new ArrayList<Player>());
+            list.clear();
+            objOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
