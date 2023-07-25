@@ -15,7 +15,7 @@ import utils.In;
  */
 public class Game {
 
-    List<Player> players = new ArrayList<>();
+    List<Player> players;
     private String fileName = "game.data";
     private File file;
 
@@ -29,16 +29,18 @@ public class Game {
         }
     }
 
-    public Game() { }
+    public Game() {
+        this.players = new ArrayList<>();
+    }
 
     private void setup() throws IOException, URISyntaxException {
         File bin = new File(Game.class.getProtectionDomain().getCodeSource().getLocation().toURI());
         File folder = new File(Game.class.getPackageName());
         String dir = bin.getAbsolutePath();
-        String filePath = dir + "\\" + folder;
-        this.file = new File(filePath + "\\" + fileName);
+        String filePath = dir + File.separator + folder;
+        this.file = new File(filePath + File.separator + fileName);
         if (!file.exists()) {
-            file.createNewFile();
+            System.out.println(file.createNewFile()?"File "+fileName+" created successfully": "Error while creating file");
         }
     }
 
