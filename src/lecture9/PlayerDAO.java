@@ -2,7 +2,6 @@ package lecture9;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,7 +32,7 @@ public class PlayerDAO {
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public static void clear(List<Player> list, File file) {
