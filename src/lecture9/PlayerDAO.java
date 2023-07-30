@@ -21,7 +21,7 @@ public class PlayerDAO {
         }
     }
 
-    public static List<Player> readPlayers(File file) {
+    public static List<Player> read(File file) {
         try {
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);

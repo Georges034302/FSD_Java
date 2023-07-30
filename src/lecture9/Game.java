@@ -47,7 +47,7 @@ public class Game {
 
     private void play() {
         players.clear();
-        players.addAll(PlayerDAO.readPlayers(file));
+        players.addAll(PlayerDAO.read(file));
         int index = players.size();
         List<Player> currentGame = new ArrayList<>();
         for (int i = index + 1; i < index + 10; i++) {
@@ -65,7 +65,7 @@ public class Game {
 
     private void show() {
         System.out.println("\nReading players record to file.");
-        List<Player> temp = PlayerDAO.readPlayers(file);
+        List<Player> temp = PlayerDAO.read(file);
         temp.forEach(System.out::println);
     }
 

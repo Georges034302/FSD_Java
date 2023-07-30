@@ -27,7 +27,7 @@ The aim of this exercise is to practice Java I/O and exception handling with Jav
   * a file name "game.data"
   * a File object
 * Game has a default constructor
-* Game has the method ‘setup’ to check if the file "game.data" exist. If the file does not exist, the method should create "game.data" in the correct application directory
+* Game has the method 'setup' to check if the file "game.data" exist. If the file does not exist, the method should create "game.data" in the correct application directory
 * Game has the method 'play' to start a new game with 10 players as follows:
   * the method should remember the last game player number and start from the next
   * the method should only show the current game
@@ -35,13 +35,13 @@ The aim of this exercise is to practice Java I/O and exception handling with Jav
 * Game has the method 'save' to write a list of players to file
 * Game has the method 'show' to show all games recorded in file
 * Game has the method 'clear' to clear file content
-* Game has the method ‘menu’ that represents the Game menu and provide users with 4 choices:
+* Game has the method 'menu' that represents the Game menu and provide users with 4 choices:
   * ( p ) – play a new game
   * ( s ) – save the game to file
   * ( v ) – view all game records
   * ( X ) – exit
   * default : help()
-* Define a method called ‘help’ that prints out the menu options
+* Define a method called 'help' that prints out the menu options
 * Define the main() method should execute the system menu()
 
 **NOTE:** define the necessary read functions in Game
