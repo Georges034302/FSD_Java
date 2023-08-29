@@ -1,37 +1,35 @@
-package lab3.bank;
-
-import utils.In;
+import java.util.List;
+import java.util.Scanner;
 
 public class Bank {
-    private Customer customer;
+    private Manager admin;
+    private List<Customer> customers;
 
-    public Bank() {
-        this.customer = new Customer("John Smith", new Account("Savings", 1000));
-    }
-
-    private double readAmount(String action) {
-        System.out.print("Amount to " + action + " $");
-        return In.nextDouble();
-    }
-
-    private void deposit(double amount) {
-        this.customer.deposit(amount);
-    }
-
-    private void withdraw(double amount) {
-        this.customer.withdraw(amount);
-    }
+    static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Bank bank = new Bank();
-        double amount = bank.readAmount("deposit");
-        bank.deposit(amount);
-        System.out.printf("Amount %.2f deposited%n", amount);
-        amount = bank.readAmount("withdraw");
-        bank.withdraw(amount);
-        System.out.printf("Amount %.2f withdrawn%n", amount);
+        double balance = 1000;
 
+        System.out.print("Start Banking(d/w/s/x): ");
+        char choice = in.nextLine().charAt(0);
+
+        while(choice != 'x'){
+
+            switch(choice){
+                case 'd':{
+
+                }break;
+                case 'w':{
+
+                }break;
+                case 's':{
+
+                }break;
+                default: System.out.println("Unknown choice!"); break;
+            }
+            System.out.print("Continue Banking(d/w/s/x): ");
+            choice = in.nextLine().charAt(0);
+        }
         
     }
-
 }
