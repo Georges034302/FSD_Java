@@ -1,31 +1,28 @@
-package lab4.bank;
+package lab5.bank;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Bank {
-        static Scanner in = new Scanner(System.in);
 
         public static void main(String[] args) {
             double balance = 1000;
 
             System.out.print("Start Banking(d/w/s/x): ");
-            char choice = in.nextLine().charAt(0);
+            char choice = In.nextChar();
 
             while (choice != 'x') {
 
                 switch (choice) {
                     case 'd': {
                         System.out.print("Amount to deposit $");
-                        double amount = in.nextDouble();
-                        in.nextLine();
+                        double amount = In.nextDouble();
                         balance += amount;
                         System.out.printf("Amount deposited $%.2f%n", amount);
                     }
                         break;
                     case 'w': {
                         System.out.print("Amount to withdraw $");
-                        double amount = in.nextDouble();
+                        double amount = In.nextDouble();
                         in.nextLine();
                         if (balance >= amount) {
                             balance -= amount;
@@ -45,7 +42,7 @@ public class Bank {
                         break;
                 }
                 System.out.print("Continue Banking(d/w/s/x): ");
-                choice = in.nextLine().charAt(0);
+                choice = In.nextChar();
             }
         }
 }
