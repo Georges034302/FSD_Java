@@ -1,7 +1,5 @@
-package lab5.bank;
-
+package lab6.bank;
 import utils.In;
-
 public class Bank {
 
     private double balance;

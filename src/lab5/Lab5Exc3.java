@@ -1,7 +1,5 @@
 package lab5;
 
-import utils.In;
-
 public class Lab5Exc3 {
 
     public static void main(String[] args) {

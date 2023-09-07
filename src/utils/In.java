@@ -1,4 +1,5 @@
 package utils;
+
 import java.util.*;
 
 /**
@@ -66,3 +67,4 @@ public class In {
 		return scanner.nextLine().charAt(0);
 	}
 }
+
