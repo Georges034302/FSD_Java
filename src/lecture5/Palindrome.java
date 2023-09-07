@@ -28,7 +28,8 @@ public class Palindrome {
     }
 
     public static boolean isPalindrome(String s) {
-        String left = s.substring(0, s.length() / 2 + 1);
+        int mid = (s.length()%2 == 0) ? s.length()/2 : s.length()/2 +1;
+        String left = s.substring(0, mid);
         String right = s.substring(s.length() / 2, s.length());
         return left.equals(reverseString(right));
     }
