@@ -1,4 +1,4 @@
-package lab6.bank;
+package lab7.bank;
 
 public class Customer {
     private String name;
