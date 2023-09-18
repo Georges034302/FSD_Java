@@ -1,86 +1,51 @@
-package lab7.bank;
-import utils.In;
+import java.util.ArrayList;
+import java.util.List;
 
-class Bank {
-    private Customer customer;
-    
-    public static void main(String[] args) {
-        (new Bank()).menu();
+public class Bank {
+    private Manager admin;
+    private List<Customer> customers = new ArrayList<>();
+
+    public static void main(String[] args) { 
+        new Bank().menu();      
     }
 
-    public Bank() {
-        this.customer = new Customer("John Smith");
+    public Bank(){
+        this.customers.add(new Customer());
+        this.customers.add(new Customer());
+        this.customers.add(new Customer());
     }
 
-    private double readAmount(String action) {
-        System.out.print("Amount to " + action + " $");
-        return In.nextDouble();
-    }
-
-    private void deposit() {
-        double amount = readAmount("deposit");
-        this.customer.deposit(amount);
-        System.out.printf("Amount %.2f deposited%n", amount);
-    }
-
-    private void withdraw() {
-        double amount = readAmount("withdraw");
-        if (customer.isSufficient(amount)) {
-            customer.withdraw(amount);
-            System.out.printf("Amount %.2f withdrawn%n", amount);
-        } else {
-            System.out.println("Insufficient funds!");
-        }
-    }
-
-    private void transfer() {
-        double amount = readAmount("transfer");
-        if (customer.isSufficient(amount)) {
-            customer.transfer(amount);
-            System.out.printf("Amount %.2f transferred %n", amount);
-        } else {
-            System.out.println("Insufficient funds!");
-        }
-    }
-
-    private void show() {
-        customer.show();
-    }
-
-    private char readChoice() {
-        System.out.print("Start Banking (d/w/t/s/x): ");
+    private static char readChoice(){
+        System.out.print("Banking menu(L/V/X): ");
         return In.nextChar();
     }
-    
-    private void help() {
-        System.out.println("d - deposit");
-        System.out.println("w - withdraw");
-        System.out.println("t - transfer");
-        System.out.println("s - show");
-        System.out.println("x - exit");
+
+    private void customerLogin(){
+        //read the customer name
+        //find if the customer exists in the list
+        //login to the existing customer menu
     }
-    
-    private void menu() {
-        char c;
-        while ((c=readChoice()) != 'x') {
-            switch (c) {
-                case 'd':
-                    deposit();
-                    break;
-                case 'w':
-                    withdraw();
-                    break;
-                case 't':
-                    transfer();
-                    break;
-                case 's':
-                    show();
-                    break;
-                default:
-                    help();
-                    break;
+
+    private void view(){
+        //show all customers objects
+    }
+
+    private void menu(){
+        char choice = readChoice();
+        while(choice != 'X'){
+            switch(choice){
+                case 'L':customerLogin();break;
+                case 'V':view();break;
+                default: help();break;
             }
+
+            choice = readChoice();            
         }
     }
-}
 
+    private static void help(){
+        System.out.println("L- Login to customer menu");
+        System.out.println("V- View all customers");
+        System.out.println("X- exit");
+    }
+}
