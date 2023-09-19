@@ -22,6 +22,10 @@ public class Customer {
         return In.nextLine();
     }
 
+    public boolean match(String name){
+        return this.name.equals(name);
+    }
+
     private double readAmount(String action){
         System.out.print("Amount to "+action+": $");
         return In.nextDouble();
@@ -59,7 +63,7 @@ public class Customer {
         return In.nextChar();
     }
 
-    private void menu(){
+    public void menu(){
         char choice = readChoice();
         while(choice != 'x'){
             switch(choice){
