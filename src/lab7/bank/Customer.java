@@ -64,6 +64,7 @@ public class Customer {
     }
 
     public void menu(){
+        System.out.println("Customer menu "+Bank.DTF.format(Bank.NOW));
         char choice = readChoice();
         while(choice != 'x'){
             switch(choice){
