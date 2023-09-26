@@ -1,78 +1,78 @@
+package lab7.bank;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import utils.In;
 
-public class Bank {
-    private Manager admin;
-    private List<Customer> customers = new ArrayList();
-    static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+class Bank {
+    static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd/MM/uuuu - HH:mm:ss");
     static LocalDateTime NOW = LocalDateTime.now();
-
-    public static void main(String[] args) { 
-        new Bank().menu();      
+    private List<Customer> customers;
+    
+    public static void main(String[] args) {
+        (new Bank()).menu();
     }
 
-    public Bank(){
-        this.customers.add(new Customer());
-        this.customers.add(new Customer());
-        this.customers.add(new Customer());
+    public Bank() {
+        customers = new ArrayList<>();
+        addCustomers();
     }
 
-    private static char readChoice(){
-        System.out.print("Choices(L/V/X): ");
+    private void addCustomers(){
+        for(int i =0; i < 3 ; i++){
+            this.customers.add(new Customer());
+        }
+    }
+
+    private char readChoice(){
+        System.out.print("Customer menu (L/V/X): ");
         return In.nextChar();
     }
-
-    private String readName(){
-        System.out.print("Name: ");
-        return In.nextLine();
-    }
-
-    private Customer customer(String name){
-        for (Customer customer : customers) {
-            if (customer.match(name))
-                return customer;
-        }
+    
+    private Customer customer(String name){        
+        for(Customer c:customers)
+            if(c.match(name))
+                return c;
         return null;
     }
 
-    private void customerLogin(){
-        //read the customer name
-        String name = readName();
-        //find if the customer exists in the list
-        Customer customer = customer(name);        
-        //login to the existing customer menu
-        if(customer != null)
-            customer.menu();
+    private String readName() {
+        System.out.print("Enter Customer Name: ");
+        return In.nextLine();
+    }
+    
+    private void login() {
+        Customer c = customer(readName());
+        if (c != null)
+            c.use();
         else
-            System.out.println(name+" does not exist");
+            System.out.println("Customer does not exist");
     }
-
-    private void view(){
-        // show all customers objects
-        for (Customer customer : customers) {
-            System.out.println(customer);
-        }
-        
+    
+    public void view() {
+        customers.forEach(System.out::println);
     }
-
-    private void menu(){
-        System.out.println("Banking menu "+DTF.format(NOW));
-        char choice = readChoice();
-        while(choice != 'X'){
-            switch(choice){
-                case 'L':customerLogin();break;
-                case 'V':view();break;
-                default: help();break;
+    
+    public void menu() {
+        System.out.println("Bank menu: "+DTF.format(NOW));
+        char c;
+        while((c = readChoice()) != 'X'){
+            switch(c){
+                case 'L': login(); break;
+                case 'V': view(); break;
+                default: help(); break;
             }
-            choice = readChoice();            
         }
+        System.out.println("Done");
     }
-
-    private static void help(){
-        System.out.println("L- Login to customer menu");
-        System.out.println("V- View all customers");
-        System.out.println("X- exit");
+    
+    private void help() {
+        System.out.println("Menu options");
+        System.out.println("L = Login into customer menu");
+        System.out.println("V = View all customers");
+        System.out.println("X = exit");
     }
 }
+

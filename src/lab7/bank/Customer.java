@@ -1,95 +1,120 @@
+package lab7.bank;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import utils.In;
 
 public class Customer {
     private String name;
-    private Account savings;
-    private Account loan;
+    private List<Account> accounts;
 
-    public Customer(String name){
-        this.name= name;
-        this.savings = new Account("Savings");
-        this.loan = new Account("Loan");
+    public Customer() {
+        this.name = readName();
+        this.accounts = new ArrayList<>();
+        this.accounts.add(new Account("Savings"));
+        this.accounts.add(new Account("Loan"));
     }
 
-    public Customer(){
-        this.name= readName();
-        this.savings = new Account("Savings");
-        this.loan = new Account("Loan");
-    }
-
-    private String readName(){
-        System.out.print("Name: ");
+    private String readName() {
+        System.out.print("Create Accounts for Customer: ");
         return In.nextLine();
     }
 
     public boolean match(String name){
         return this.name.equals(name);
     }
+    
+    private Account account(String type){
+        for(Account a:accounts)
+            if(a.hasType(type))
+                return a;
+        return null;
+    }
 
-    private double readAmount(String action){
+    private void deposit() {
+        Account savings = account("Savings");
+        if(savings != null){
+           savings.deposit(readAmount("deposit"));
+        }else{
+            System.out.println("No such account");
+        }
+    }
+
+    private void withdraw() {
+        double amount = readAmount("withdraw");
+        Account savings = account("Savings");
+        if(savings != null){
+            if (savings.has(amount))
+                savings.withdraw(amount);
+            else
+                System.out.println("Insufficient funds");
+        }else{
+            System.out.println("No such account");
+        }
+    }
+
+    private void transfer() {
+        double amount = readAmount("transfer");
+        Account savings = account("Savings");
+        Account loan = account("Loan");
+        if(savings != null){
+            if (savings.has(amount)){
+                if(loan !=null){
+                    savings.payTo(amount, loan);
+                }else{
+                    System.out.println("No such account");
+                }
+            }else{
+                System.out.println("Insufficient funds");
+            }
+        }else{
+            System.out.println("No such account");
+        }
+    }
+
+    private double readAmount(String action) {
         System.out.print("Amount to "+action+": $");
         return In.nextDouble();
     }
 
-    public void deposit(){
-        double amount = readAmount("deposit");
-        this.savings.deposit(amount);
+    private void show() {        
+        System.out.println(name+" bank statement: "+Bank.DTF.format(Bank.NOW));
+        accounts.forEach(System.out::println);        
+    }    
+    
+    @Override 
+    public String toString(){
+        String s = accounts.stream().map(Object::toString).collect(Collectors.joining(" | "));
+        return name+"\t--> "+s; 
     }
-
-    public void withdraw(){
-        double amount = readAmount("withdraw");
-        if(savings.has(amount)){
-            savings.withdraw(amount);
-        }else{
-            System.out.println("Insufficient funds");
-        }
-    }
-
-    public void transfer(){
-        double amount = readAmount("transfer");
-        if(savings.has(amount)){
-            savings.transfer(amount, loan);
-        }else{
-            System.out.println("Insufficient funds");
-        }
-    }
-
-    public void show(){
-        System.out.println(this);
-    }
-
+    
     private char readChoice(){
-        System.out.print(this.name+" banking menu(d/w/t/s/x): ");
+        System.out.print("Customer menu (d/w/t/s/x): ");
         return In.nextChar();
     }
 
-    public void menu(){
-        System.out.println("Customer menu "+Bank.DTF.format(Bank.NOW));
-        char choice = readChoice();
-        while(choice != 'x'){
-            switch(choice){
-                case 'd':deposit();break;
-                case 'w':withdraw();break;
-                case 't':transfer();break;
-                case 's':show();break;
-                default: help();break;
+    public void use() {
+        System.out.println(name+" banking menu: "+Bank.DTF.format(Bank.NOW));
+        char c;
+        while((c = readChoice()) != 'x'){
+            switch(c){
+                case 'd': deposit(); break;
+                case 'w': withdraw(); break;
+                case 't': transfer(); break;
+                case 's': show(); break;
+                default: help(); break;
             }
-
-            choice = readChoice();            
         }
+        System.out.println("Back to Bank menu");
     }
-
-    private static void help(){
-        System.out.println("d- deposit");
-        System.out.println("w- withdraw");
-        System.out.println("t- transfer");
-        System.out.println("s- show");
-        System.out.println("x- exit");
+    
+    private void help() {
+        System.out.println("Menu options");
+        System.out.println("d = deposit");
+        System.out.println("w = withdraw");
+        System.out.println("t = transfer");
+        System.out.println("s = show");
+        System.out.println("x = exit");
     }
-
-    @Override
-    public String toString(){
-        String output = this.name+"\t --> "+savings.toString()+" | "+loan.toString();
-        return output;
-    }
- }
+}
