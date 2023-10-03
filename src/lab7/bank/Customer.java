@@ -61,7 +61,7 @@ public class Customer {
         if(savings != null){
             if (savings.has(amount)){
                 if(loan !=null){
-                    savings.payTo(amount, loan);
+                    savings.transfer(amount, loan);
                 }else{
                     System.out.println("No such account");
                 }
