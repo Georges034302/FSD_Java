@@ -1,4 +1,4 @@
-package lab7.bank;
+package lab8.bank;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,24 +10,26 @@ class Bank {
     static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd/MM/uuuu - HH:mm:ss");
     static LocalDateTime NOW = LocalDateTime.now();
     private List<Customer> customers;
-
+    private Manager admin;
+    
     public static void main(String[] args) {
         (new Bank()).menu();
     }
 
     public Bank() {
+        admin = new Manager();
         customers = new ArrayList<>();
         addCustomers();
     }
 
-    private void addCustomers(){
-        for(int i =0; i < 3 ; i++){
+    private void addCustomers() {
+        for (int i = 0; i < 3; i++) {
             this.customers.add(new Customer());
         }
     }
 
     private char readChoice(){
-        System.out.print("Customer menu (L/V/X): ");
+        System.out.print("Customer menu (L/A/X): ");
         return In.nextChar();
     }
     
@@ -42,11 +44,11 @@ class Bank {
         System.out.print("Enter Customer Name: ");
         return In.nextLine();
     }
-    
-    private void login() {
-        Customer c = customer(readName());
-        if (c != null)
-            c.use();
+
+    public void show() {
+        Customer customer = customer(readName());
+        if (customer != null)
+            System.out.println(customer);
         else
             System.out.println("Customer does not exist");
     }
@@ -54,14 +56,44 @@ class Bank {
     public void view() {
         customers.forEach(System.out::println);
     }
+
+    public void add(){        
+        String name = readName();
+        Customer customer = customer(name);
+        if (customer == null) {            
+            customers.add(new Customer(name));
+        }else{
+            System.out.println("Customer already exists");
+        }
+    }
     
+    public void remove(){
+        Customer customer = customer(readName());
+        if (customer != null){
+            customers.remove(customer);
+        }else
+            System.out.println("Customer does not exist");
+    }
+    
+    private void customerLogin() {
+        Customer c = customer(readName());
+        if (c != null)
+            c.use();
+        else
+            System.out.println("Customer does not exist");
+    }
+
+    private void adminLogin(Bank bank) {
+        admin.use(bank);
+    }
+        
     public void menu() {
         System.out.println("Bank menu: "+DTF.format(NOW));
         char c;
         while((c = readChoice()) != 'X'){
             switch(c){
-                case 'L': login(); break;
-                case 'V': view(); break;
+                case 'L': customerLogin(); break;
+                case 'A': adminLogin(this); break;
                 default: help(); break;
             }
         }
@@ -71,7 +103,7 @@ class Bank {
     private void help() {
         System.out.println("Menu options");
         System.out.println("L = Login into customer menu");
-        System.out.println("V = View all customers");
+        System.out.println("A = Login to admin menu");
         System.out.println("X = exit");
     }
 }
