@@ -14,7 +14,7 @@
 
 	<Text styleClass="heading" text="${'Customer: ' + controller.customer.name}"/>
 	<ListView fx:id="accountsLv" items="${controller.customer.accounts}" prefWidth="300" prefHeight="200">
-		<placeholder><Label text="No accounts"/></placeholder>
+		<placeholder><Label text="No accounts"/></placeholder>		
 	</ListView>
 	<HBox alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
 		<Button fx:id="viewAccountBtn" disable="true" text="View Account" onAction="#handleViewAccount"/>

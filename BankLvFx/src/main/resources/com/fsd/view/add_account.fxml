@@ -14,8 +14,8 @@
 	<Text styleClass="heading" text="Add Account" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
 	<Label text="Type:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 	<TextField fx:id="typeTf" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-	<Label text="Credit Limit:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-	<TextField fx:id="creditLimitTf" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+	<Label text="Balance:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+	<TextField fx:id="balanceTf" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 	<HBox alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
 		<Button text="Cancel" onAction="#handleCancel"/>
 		<Button fx:id="addBtn" text="Add" disable="true" onAction="#handleAdd"/>
